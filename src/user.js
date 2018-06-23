@@ -3,10 +3,10 @@ import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetai
 const User = function() {
 
     const userPoolDetails = {
-        UserPoolId: 'us-east-1_F3yVZA5Sp',
-        ClientId: '7be3lv5eddcfpdv25kih5jd5mp'
+        UserPoolId: '',
+        ClientId: ''
     };
-    
+
     function login(email, password) {
         console.log('login', email, password);
     }
