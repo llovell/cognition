@@ -5,79 +5,88 @@ import User from './user';
 const user = new User();
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            email: "",
-            phone: "",
-            password: "",
-            code: ""
-        }
+    this.state = {
+      email: '',
+      phone: '',
+      password: '',
+      code: '',
+    };
 
-        this.handleEmailChange = this.handleEmailChange.bind(this);
-        this.handlePhoneChange = this.handlePhoneChange.bind(this);
-        this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.handleCodeChange = this.handleCodeChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePhoneChange = this.handlePhoneChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.handleCodeChange = this.handleCodeChange.bind(this);
 
-        this.doRegister = this.doRegister.bind(this);
-        this.doLogin = this.doLogin.bind(this);
-        this.doConfirm = this.doConfirm.bind(this);
-    }
+    this.doRegister = this.doRegister.bind(this);
+    this.doLogin = this.doLogin.bind(this);
+    this.doConfirm = this.doConfirm.bind(this);
+  }
 
-    handleEmailChange(event) {
-        this.setState({
-            email: event.target.value
-        });
-    }
+  handleEmailChange(event) {
+    this.setState({
+      email: event.target.value,
+    });
+  }
 
-    handlePhoneChange(event) {
-        this.setState({
-            phone: event.target.value
-        });
-    }
+  handlePhoneChange(event) {
+    this.setState({
+      phone: event.target.value,
+    });
+  }
 
-    handlePasswordChange(event) {
-        this.setState({
-            password: event.target.value
-        });
-    }
+  handlePasswordChange(event) {
+    this.setState({
+      password: event.target.value,
+    });
+  }
 
-    handleCodeChange(event) {
-        this.setState({
-            code: event.target.value
-        });
-    }
+  handleCodeChange(event) {
+    this.setState({
+      code: event.target.value,
+    });
+  }
 
-    doLogin() {
-        user.login(this.state.email, this.state.password);
-    }
+  doLogin() {
+    const { email, password } = this.state;
+    user.login(email, password);
+  }
 
-    doRegister() {
-        user.register(this.state.email, this.state.password, this.state.phone);
-    }
+  doRegister() {
+    const { email, password, phone } = this.state;
+    user.register(email, password, phone);
+  }
 
-    doConfirm() {
-        user.confirm(this.state.code);
-    }
+  doConfirm() {
+    const { code } = this.state;
+    user.confirm(code);
+  }
 
-    render() {
-        return (
-            <div>
-                <input type="text" placeholder="email" onChange={this.handleEmailChange} />
-                <input type="text" placeholder="phone" onChange={this.handlePhoneChange} />
-                <input type="password" placeholder="password" onChange={this.handlePasswordChange} />
-                <button onClick={this.doRegister}>Register</button>
-                <button onClick={this.doLogin}>Login</button>
-                <br/>
-                <input type="text" placeholder="code" onChange={this.handleCodeChange} />
-                <button onClick={this.doConfirm}>Confirm</button>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <input type="text" placeholder="email" onChange={this.handleEmailChange} />
+        <input type="text" placeholder="phone" onChange={this.handlePhoneChange} />
+        <input type="password" placeholder="password" onChange={this.handlePasswordChange} />
+        <button type="button" onClick={this.doRegister}>
+          Register
+        </button>
+        <button type="button" onClick={this.doLogin}>
+          Login
+        </button>
+        <br />
+        <input type="text" placeholder="code" onChange={this.handleCodeChange} />
+        <button type="button" onClick={this.doConfirm}>
+          Confirm
+        </button>
+      </div>
+    );
+  }
 }
 
 ReactDOM.render(
-    <App />,
-    document.getElementById('app')
+  <App />,
+  document.getElementById('app'),
 );

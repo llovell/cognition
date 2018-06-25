@@ -1,61 +1,58 @@
-import { CognitoUserPool, CognitoUserAttribute, CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
+import {
+  CognitoUserPool,
+  CognitoUserAttribute,
+} from 'amazon-cognito-identity-js';
 
-const User = function() {
+const User = function User() {
+  const userPoolDetails = {
+    UserPoolId: '',
+    ClientId: '',
+  };
 
-    const userPoolDetails = {
-        UserPoolId: '',
-        ClientId: ''
+  function login() {
+  }
+
+  function register(email, password, phone) {
+    const userPool = new CognitoUserPool(userPoolDetails);
+
+    const attributes = [];
+
+    const emailDetails = {
+      Name: 'email',
+      Value: email,
     };
 
-    function login(email, password) {
-        console.log('login', email, password);
-    }
+    const phoneDetails = {
+      Name: 'phone_number',
+      Value: phone,
+    };
 
-    function register(email, password, phone) {
-        console.log(`Register User ${email} ${password} ${phone}`);
+    const emailAttribute = new CognitoUserAttribute(emailDetails);
+    const phoneAttribute = new CognitoUserAttribute(phoneDetails);
 
-        const userPool = new CognitoUserPool(userPoolDetails);
+    attributes.push(emailAttribute);
+    attributes.push(phoneAttribute);
 
-        let attributes = [];
+    userPool.signUp(email, password, attributes, null, (err, result) => {
+      if (err) {
+        console.error(err);
+      } else {
+        const cognitoUser = result.user;
+        console.log(result);
+        console.log(cognitoUser);
+        console.log(`user registered as ${cognitoUser.getUsername()}`);
+      }
+    });
+  }
 
-        const emailDetails = {
-            Name: 'email',
-            Value: email
-        };
+  function confirm() {
+  }
 
-        const phoneDetails = {
-            Name: 'phone_number',
-            Value: phone
-        };
-
-
-        const emailAttribute = new CognitoUserAttribute(emailDetails);
-        const phoneAttribute = new CognitoUserAttribute(phoneDetails);
-
-        attributes.push(emailAttribute);
-        attributes.push(phoneAttribute);
-
-        userPool.signUp(email, password, attributes, null, function(err, result) {
-            if (err) {
-                console.error(err);
-            } else {
-                var cognitoUser = result.user;
-                console.log(result);
-                console.log(cognitoUser);
-                console.log('user registered as ' + cognitoUser.getUsername());
-            }
-        });
-    }
-
-    function confirm(code) {
-        console.log('confirm', code);
-    }
-
-    return {
-        login: login,
-        register: register,
-        confirm: confirm
-    }  
+  return {
+    login,
+    register,
+    confirm,
+  };
 };
 
 module.exports = User;
