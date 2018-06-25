@@ -5,8 +5,8 @@ import {
 
 const User = function User() {
   const userPoolDetails = {
-    UserPoolId: '',
-    ClientId: '',
+    UserPoolId: 'us-east-1_F3yVZA5Sp',
+    ClientId: '7be3lv5eddcfpdv25kih5jd5mp',
   };
 
   function login() {
