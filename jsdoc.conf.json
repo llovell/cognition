@@ -1,6 +1,6 @@
 {
   "source": {
-    "include": ["./src/user.js"]
+    "include": ["./src/user.js", "./README.md"]
   },
   "opts": {
     "destination": "./docs",
