@@ -6,10 +6,12 @@ import {
 /**
  * Module used to authenticate a user
  * and authorize privileges
- * 
+ *
  * @module User
  */
 const User = function User() {
+  let cognitoUser = null;
+
   const userPoolDetails = {
     UserPoolId: 'us-east-1_F3yVZA5Sp',
     ClientId: '7be3lv5eddcfpdv25kih5jd5mp',
@@ -58,10 +60,7 @@ const User = function User() {
       if (err) {
         console.error(err);
       } else {
-        const cognitoUser = result.user;
-        console.log(result);
-        console.log(cognitoUser);
-        console.log(`user registered as ${cognitoUser.getUsername()}`);
+        cognitoUser = result.user;
       }
     });
   }
@@ -72,7 +71,16 @@ const User = function User() {
    * @function confirm
    * @param {string} code - Users verification code
    */
-  function confirm() {
+  function confirm(code) {
+    if (cognitoUser) {
+      cognitoUser.confirmRegistration(code, true, (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(`call result: ${result}`);
+        }
+      });
+    }
   }
 
   return {
