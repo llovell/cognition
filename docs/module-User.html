@@ -24,7 +24,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-User.html">User</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-User.html#~confirm">confirm</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-User.html#~login">login</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-User.html#~register">register</a></span></li>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module">M</span><span class="nav-item-name"><a href="module-User.html">User</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-User.html#~confirm">confirm</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-User.html#~login">login</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-User.html#~logout">logout</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="module-User.html#~register">register</a></span></li>
 </nav>
 
 <div id="main">
@@ -52,7 +52,7 @@
     
         
             <div class="description"><p>Module used to authenticate a user
-and authorize privileges</p></div>
+and authorize their privileges</p></div>
         
 
         
@@ -148,7 +148,7 @@ and authorize privileges</p></div>
 
     
 
-    <h4 class="name" id="~confirm"><span class="type-signature">(inner) </span>confirm<span class="signature">(code)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~confirm"><span class="type-signature">(inner) </span>confirm<span class="signature">(code)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
 
     
 
@@ -269,6 +269,31 @@ and authorize privileges</p></div>
 
 
 
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>Promise</p>
+</div>
+
+    
+</div>
+
 
 
 </div>
@@ -278,7 +303,7 @@ and authorize privileges</p></div>
 
     
 
-    <h4 class="name" id="~login"><span class="type-signature">(inner) </span>login<span class="signature">(email, password)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~login"><span class="type-signature">(inner) </span>login<span class="signature">(email, password)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
 
     
 
@@ -425,6 +450,31 @@ and authorize privileges</p></div>
 
 
 
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>Promise</p>
+</div>
+
+    
+</div>
+
 
 
 </div>
@@ -434,7 +484,110 @@ and authorize privileges</p></div>
 
     
 
-    <h4 class="name" id="~register"><span class="type-signature">(inner) </span>register<span class="signature">(email, password, phone)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="~logout"><span class="type-signature">(inner) </span>logout<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Function used to log a user out</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>Promise</p>
+</div>
+
+    
+</div>
+
+
+
+</div>
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="~register"><span class="type-signature">(inner) </span>register<span class="signature">(email, password, phone)</span><span class="type-signature"> &rarr; {Promise}</span></h4>
 
     
 
@@ -607,6 +760,31 @@ and authorize privileges</p></div>
 
 
 
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Promise</code></span>
+
+
+    </dd>
+</dl>
+
+
+<div class="param-desc">
+    <p>Promise</p>
+</div>
+
+    
+</div>
+
 
 
 </div>
@@ -628,7 +806,7 @@ and authorize privileges</p></div>
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Jun 26 2018 11:05:02 GMT-0500 (CDT) using the Minami theme.
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Jun 28 2018 11:38:18 GMT-0500 (CDT) using the Minami theme.
 </footer>
 
 <script>prettyPrint();</script>

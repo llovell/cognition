@@ -52,21 +52,42 @@ class App extends React.Component {
 
   doLogin() {
     const { email, password } = this.state;
-    user.login(email, password);
+    user.login(email, password)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   doLogout() { // eslint-disable-line class-methods-use-this
-    user.logout();
+    user.logout()
+      .then(() => {
+        console.log('Logged out');
+      });
   }
 
   doRegister() {
     const { email, password, phone } = this.state;
-    user.register(email, password, phone);
+    user.register(email, password, phone)
+      .then(() => {
+        console.log('Registered');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   doConfirm() {
     const { code } = this.state;
-    user.confirm(code);
+    user.confirm(code)
+      .then(() => {
+        console.log('Confirmed');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   render() {

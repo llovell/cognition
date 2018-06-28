@@ -4,10 +4,11 @@ import {
   AuthenticationDetails,
   CognitoUser,
 } from 'amazon-cognito-identity-js';
+import Promise from 'bluebird';
 
 /**
  * Module used to authenticate a user
- * and authorize privileges
+ * and authorize their privileges
  *
  * @module User
  */
@@ -25,6 +26,7 @@ const User = function User() {
    * @function login
    * @param {string} email - Users email address
    * @param {string} password - Users password
+   * @returns {Promise} Promise
    */
   function login(email, password) {
     const authenticationData = {
@@ -39,23 +41,27 @@ const User = function User() {
     };
     cognitoUser = new CognitoUser(userData);
 
-    cognitoUser.authenticateUser(authenticationDetails, {
-      onSuccess: (result) => {
-        const accessToken = result.getAccessToken().getJwtToken();
-        console.log(accessToken);
-        const idToken = result.idToken.jwtToken;
-        console.log(idToken);
-      },
+    return new Promise((resolve, reject) => {
+      cognitoUser.authenticateUser(authenticationDetails, {
+        onSuccess: (result) => {
+          const accessToken = result.getAccessToken().getJwtToken();
+          const idToken = result.idToken.jwtToken;
+          resolve({
+            accessToken,
+            idToken,
+          });
+        },
 
-      onFailure: (err) => {
-        console.log(err);
-      },
+        onFailure: (err) => {
+          reject(err);
+        },
 
-      // mfaRequired: (codeDeliveryDetails) => {
-      //   console.log(codeDeliveryDetails);
-      //   const verificationCode = prompt('Please input verification code', '');
-      //   cognitoUser.sendMFACode(verificationCode, this);
-      // },
+        // mfaRequired: (codeDeliveryDetails) => {
+        //   console.log(codeDeliveryDetails);
+        //   const verificationCode = prompt('Please input verification code', '');
+        //   cognitoUser.sendMFACode(verificationCode, this);
+        // },
+      });
     });
   }
 
@@ -63,11 +69,17 @@ const User = function User() {
    * Function used to log a user out
    *
    * @function logout
+   * @returns {Promise} Promise
    */
   function logout() {
-    if (cognitoUser) {
-      cognitoUser.signOut();
-    }
+    return new Promise((resolve, reject) => {
+      try {
+        cognitoUser.signOut();
+        resolve();
+      } catch (err) {
+        reject(err);
+      }
+    });
   }
 
   /**
@@ -77,6 +89,7 @@ const User = function User() {
    * @param {string} email - Users email address
    * @param {string} password - Users password
    * @param {string} phone - Users phone number
+   * @returns {Promise} Promise
    */
   function register(email, password, phone) {
     const userPool = new CognitoUserPool(userPoolDetails);
@@ -99,12 +112,15 @@ const User = function User() {
     attributes.push(emailAttribute);
     attributes.push(phoneAttribute);
 
-    userPool.signUp(email, password, attributes, null, (err, result) => {
-      if (err) {
-        console.error(err);
-      } else {
-        cognitoUser = result.user;
-      }
+    return new Promise((resolve, reject) => {
+      userPool.signUp(email, password, attributes, null, (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          cognitoUser = result.user;
+          resolve();
+        }
+      });
     });
   }
 
@@ -113,17 +129,18 @@ const User = function User() {
    *
    * @function confirm
    * @param {string} code - Users verification code
+   * @returns {Promise} Promise
    */
   function confirm(code) {
-    if (cognitoUser) {
+    return new Promise((resolve, reject) => {
       cognitoUser.confirmRegistration(code, true, (err, result) => {
         if (err) {
-          console.log(err);
+          reject(err);
         } else {
-          console.log(`call result: ${result}`);
+          resolve(result);
         }
       });
-    }
+    });
   }
 
   return {

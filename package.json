@@ -33,6 +33,7 @@
   "dependencies": {
     "amazon-cognito-identity-js": "^2.0.9",
     "aws-sdk": "^2.260.1",
+    "bluebird": "^3.5.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"
   }
