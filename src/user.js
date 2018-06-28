@@ -13,6 +13,7 @@ import Promise from 'bluebird';
  * @module User
  * @param {string} userPoolId - Cognito userpool id
  * @param {string} clientId - Cognito client id
+ * @returns {object} User
  */
 const User = function User(userPoolId, clientId) {
   let cognitoUser = null;
