@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import User from './user';
 
-const user = new User('us-east-1_F3yVZA5Sp', '7be3lv5eddcfpdv25kih5jd5mp');
+// params: userPoolId, clientId, identityPoolId
+const user = new User('us-east-1_F3yVZA5Sp',
+  '7be3lv5eddcfpdv25kih5jd5mp',
+  'us-east-1:4bcbcb09-32b7-4466-b351-fbec9d3c3aed');
 
 class App extends React.Component {
   constructor(props) {
@@ -24,6 +27,13 @@ class App extends React.Component {
     this.doLogin = this.doLogin.bind(this);
     this.doLogout = this.doLogout.bind(this);
     this.doConfirm = this.doConfirm.bind(this);
+  }
+
+  componentDidMount() {
+    user.getUsersIDPCredentials()
+      .then((credentials) => {
+        console.log(credentials);
+      });
   }
 
   handleEmailChange(event) {
@@ -53,8 +63,11 @@ class App extends React.Component {
   doLogin() {
     const { email, password } = this.state;
     user.login(email, password)
-      .then((result) => {
-        console.log(result);
+      .then(() => {
+        user.getUsersIDPCredentials()
+          .then((credentials) => {
+            console.log(credentials);
+          });
       })
       .catch((err) => {
         console.log(err);

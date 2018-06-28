@@ -5,6 +5,7 @@ import {
   CognitoUser,
 } from 'amazon-cognito-identity-js';
 import Promise from 'bluebird';
+import { CognitoIdentityCredentials } from 'aws-sdk';
 
 /**
  * Module used to authenticate a user
@@ -13,9 +14,10 @@ import Promise from 'bluebird';
  * @module User
  * @param {string} userPoolId - Cognito userpool id
  * @param {string} clientId - Cognito client id
+ * @param {string} identityPoolId - Cognito identity pool id
  * @returns {object} User
  */
-const User = function User(userPoolId, clientId) {
+const User = function User(userPoolId, clientId, identityPoolId) {
   let cognitoUser = null;
 
   const userPoolDetails = {
@@ -146,11 +148,53 @@ const User = function User(userPoolId, clientId) {
     });
   }
 
+  /**
+   * Function used to get users identity pool credentials
+   *
+   * @function getUsersIDPCredentials
+   * @returns {Promise} Promise - Resolves users identity pool credentials
+   */
+  function getUsersIDPCredentials() {
+    return new Promise((resolve, reject) => {
+      const userPool = new CognitoUserPool(userPoolDetails);
+      cognitoUser = userPool.getCurrentUser();
+      const identityPoolArn = `cognito-idp.us-east-1.amazonaws.com/${userPoolId}`;
+
+      if (cognitoUser) {
+        cognitoUser.getSession((err, session) => {
+          if (err) {
+            reject(err);
+          }
+
+          const creds = new CognitoIdentityCredentials({
+            IdentityPoolId: identityPoolId,
+            Logins: {
+              [identityPoolArn]: session.getIdToken().getJwtToken(),
+            },
+          }, {
+            region: 'us-east-1',
+          });
+
+          creds.refresh((err2) => {
+            if (err2) {
+              reject(err2);
+            } else {
+              resolve(creds);
+            }
+          });
+        });
+      } else {
+        reject();
+      }
+    });
+  }
+
   return {
     login,
     logout,
     register,
     confirm,
+    getUsersIDPCredentials,
   };
 };
 
