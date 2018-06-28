@@ -22,6 +22,7 @@ class App extends React.Component {
 
     this.doRegister = this.doRegister.bind(this);
     this.doLogin = this.doLogin.bind(this);
+    this.doLogout = this.doLogout.bind(this);
     this.doConfirm = this.doConfirm.bind(this);
   }
 
@@ -54,6 +55,10 @@ class App extends React.Component {
     user.login(email, password);
   }
 
+  doLogout() { // eslint-disable-line class-methods-use-this
+    user.logout();
+  }
+
   doRegister() {
     const { email, password, phone } = this.state;
     user.register(email, password, phone);
@@ -75,6 +80,9 @@ class App extends React.Component {
         </button>
         <button type="button" onClick={this.doLogin}>
           Login
+        </button>
+        <button type="button" onClick={this.doLogout}>
+          Logout
         </button>
         <br />
         <input type="text" placeholder="code" onChange={this.handleCodeChange} />

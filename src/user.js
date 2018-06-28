@@ -1,6 +1,8 @@
 import {
   CognitoUserPool,
   CognitoUserAttribute,
+  AuthenticationDetails,
+  CognitoUser,
 } from 'amazon-cognito-identity-js';
 
 /**
@@ -24,7 +26,48 @@ const User = function User() {
    * @param {string} email - Users email address
    * @param {string} password - Users password
    */
-  function login() {
+  function login(email, password) {
+    const authenticationData = {
+      Username: email,
+      Password: password,
+    };
+    const authenticationDetails = new AuthenticationDetails(authenticationData);
+    const userPool = new CognitoUserPool(userPoolDetails);
+    const userData = {
+      Username: email,
+      Pool: userPool,
+    };
+    cognitoUser = new CognitoUser(userData);
+
+    cognitoUser.authenticateUser(authenticationDetails, {
+      onSuccess: (result) => {
+        const accessToken = result.getAccessToken().getJwtToken();
+        console.log(accessToken);
+        const idToken = result.idToken.jwtToken;
+        console.log(idToken);
+      },
+
+      onFailure: (err) => {
+        console.log(err);
+      },
+
+      mfaRequired: (codeDeliveryDetails) => {
+        console.log(codeDeliveryDetails);
+        const verificationCode = prompt('Please input verification code', '');
+        cognitoUser.sendMFACode(verificationCode, this);
+      },
+    });
+  }
+
+  /**
+   * Function used to log a user out
+   *
+   * @function logout
+   */
+  function logout() {
+    if (cognitoUser) {
+      cognitoUser.signOut();
+    }
   }
 
   /**
@@ -85,6 +128,7 @@ const User = function User() {
 
   return {
     login,
+    logout,
     register,
     confirm,
   };
