@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import User from './user';
 
-const user = new User();
+const user = new User('us-east-1_F3yVZA5Sp', '7be3lv5eddcfpdv25kih5jd5mp');
 
 class App extends React.Component {
   constructor(props) {

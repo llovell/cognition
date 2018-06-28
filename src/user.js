@@ -11,13 +11,15 @@ import Promise from 'bluebird';
  * and authorize their privileges
  *
  * @module User
+ * @param {string} userPoolId - Cognito userpool id
+ * @param {string} clientId - Cognito client id
  */
-const User = function User() {
+const User = function User(userPoolId, clientId) {
   let cognitoUser = null;
 
   const userPoolDetails = {
-    UserPoolId: 'us-east-1_F3yVZA5Sp',
-    ClientId: '7be3lv5eddcfpdv25kih5jd5mp',
+    UserPoolId: userPoolId,
+    ClientId: clientId,
   };
 
   /**
