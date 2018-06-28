@@ -51,11 +51,11 @@ const User = function User() {
         console.log(err);
       },
 
-      mfaRequired: (codeDeliveryDetails) => {
-        console.log(codeDeliveryDetails);
-        const verificationCode = prompt('Please input verification code', '');
-        cognitoUser.sendMFACode(verificationCode, this);
-      },
+      // mfaRequired: (codeDeliveryDetails) => {
+      //   console.log(codeDeliveryDetails);
+      //   const verificationCode = prompt('Please input verification code', '');
+      //   cognitoUser.sendMFACode(verificationCode, this);
+      // },
     });
   }
 
