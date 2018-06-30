@@ -1,8 +1,8 @@
 # Cognition
 
-This project was created as a development environment
-for a user authentication and authorization module
-using Amazon Web Services [Cognito Service](https://aws.amazon.com/cognito/)
+This project was created to develop a user authentication
+and authorization module build on Amazon Web Services
+[Cognito Service](https://aws.amazon.com/cognito/)
 
 Amazon Cognito lets you add user sign-up, sign-in, and
 access control to your web and mobile apps quickly and easily
