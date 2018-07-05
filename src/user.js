@@ -184,7 +184,7 @@ const User = function User(userPoolId, clientId, identityPoolId) {
           });
         });
       } else {
-        reject();
+        reject(new Error('No credentials'));
       }
     });
   }
